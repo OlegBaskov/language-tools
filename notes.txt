@@ -1,0 +1,33 @@
+
+
+SELECT relname, idx_scan, idx_tup_fetch, n_tup_ins, n_tup_upd FROM pg_stat_user_tables;
+
+
+SELECT relname, idx_scan, idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del FROM pg_stat_user_tables;
+  relname   | idx_scan  | idx_tup_fetch | n_tup_ins | n_tup_upd | n_tup_del 
+------------+-----------+---------------+-----------+-----------+-----------
+ atoms      |  95789119 |      90072278 |   3288742 |         0 |         0
+ values     |         4 |             0 |         0 |         0 |         0
+ typecodes  |         0 |             0 |       228 |         0 |         0
+ valuations | 131581719 |      84520666 |  44519326 |         0 |  41926158
+ spaces     |   3288742 |       3288742 |         2 |         0 |         0
+(5 rows)
+
+
+ tablename  |        indexname        |  num_rows   | table_size | index_size | unique | number_of_scans | tuples_read | tuples_fetched 
+------------+-------------------------+-------------+------------+------------+--------+-----------------+-------------+----------------
+ atoms      | atoms_pkey              | 3.15055e+06 | 306 MB     | 70 MB      | Y      |        89038656 |    89038655 |       89038655
+ atoms      | atoms_type_name_key     | 3.15055e+06 | 306 MB     | 121 MB     | Y      |           31052 |      162845 |           5052
+ atoms      | atoms_type_outgoing_key | 3.15055e+06 | 306 MB     | 289 MB     | Y      |         6719411 |      870846 |         870788
+ spaces     | spaces_pkey             |           0 | 8192 bytes | 16 kB      | Y      |         3288742 |     3288742 |        3288742
+ typecodes  | typecodes_type_key      |         228 | 16 kB      | 16 kB      | Y      |               0 |           0 |              0
+ typecodes  | typecodes_typename_key  |         228 | 16 kB      | 16 kB      | Y      |               0 |           0 |              0
+ valuations | valuations_atom_idx     | 2.59314e+06 | 281 MB     | 91 MB      | N      |       131563181 |   317013969 |       84510000
+ valuations | valuations_key_atom_key | 2.59314e+06 | 281 MB     | 127 MB     | Y      |           18538 |       28927 |          10666
+ values     | values_pkey             |           0 | 0 bytes    | 8192 bytes | Y      |               4 |           0 |              0
+(9 rows)
+
+So we have roughly 90M fetches for Atoms and 85M for Valuations.
+
+
+SELECT relname, idx_scan, idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del FROM pg_stat_user_tables;

@@ -1,0 +1,84 @@
+
+
+Relex parsing at most 0.14 seconds per sentence.
+
+1) Tests of C5 - NO SQL fetch and store, NO (gc)
+
+
+17:22
+Start
+17:22 RES 0.078G
+Total Time: 459 seconds
+GC time:    154
+
+17:29 RES 0.745G
+
+and it is still climbing...
+
+17:30 RES 0.795G
+17:31 RES 0.814G
+
+17:36
+Start RES 0.814G
+Total time: 460 seconds
+GC time:    144
+Stop  RES 1.061G
+Mem used: 0.247G
+
+GC total    300
+
+17:48
+Start RES 1.061G
+Total time: 463 seconds
+GC time:    129 seconds
+Stop RES  1.453G
+Mem used: 0.392G
+
+18:01
+Start RES 1.453G
+Total time: 463 seconds
+GC time:    134
+Stop RES  1.867G
+Mem used: 0.413G
+Atoms:   217,271
+
+18:20
+Start RES 1.867G
+Atoms:   217,271
+Total time: 469 seconds
+GC time:    127 
+Stop RES  2.271
+Mem used: 0.404G
+
+2) Tests of C5 - no SQL fetch and store, WITH (gc)
+
+Restart Cogserver - memory 57M
+
+18:40
+Start RES 0.057G
+Atoms:        1
+Total time: 465 seconds
+GC time:    272         <<<<<< WHY IS THIS BIGGER WHEN THE TOTAL TIME IS THE SAME? 
+Stop RES  0.971G
+Mem used: 0.814G
+Atoms:   217,271        <<<<<< No leaking atoms
+
+19:02
+Start RES 0.981G
+Atoms:   217,271
+Total time: 464 seconds
+GC time:    270
+Stop RES  1.111G
+Mem used: 0.130G
+
+
+19:02
+Start RES 1.111G
+Atoms:   217,271
+Total time: 463 seconds
+GC time:    320 
+Stop RES  1.243G
+Mem used: 0.130G
+
+
+
