@@ -19,6 +19,7 @@ die "Wrong number of args!" if ($#ARGV != 1 && $#ARGV != 2);
 die "Netcat failed! Bad host or port?" if (0 != $?);
 
 my $netcat = "|nc $ARGV[0] $ARGV[1]";
+
 my $start_time = time();
 my $last_time = $start_time;
 my $count = 0;
@@ -30,17 +31,16 @@ my $total_time = 1.0;
 my $chunk_size = 1;
 my $report_interval = 100;
 
-my $command_chunks = "";
-
 my $verbose = 0;
+
+# Pair distance defines the maximum distance between words in pairs
+# for the parse. NOTE: This should be less or equal to the value 
+# observed in the pair observation pass used to compute the MI values.
+my $pair_distance = 2;
 
 if ($#ARGV == 2) {
 	$verbose = 1;
 }
-
-open NC, $netcat || die "nc failed: $!\n";
-print NC "parse -open_parse \"/home/inflector/language/parse_out.txt\"\n";
-close NC;
 
 while (<STDIN>)
 {
@@ -48,15 +48,7 @@ while (<STDIN>)
 	chop;
 
 	$sentence = $_;
-	if ($count >= 1003 && $count < 1005)
-	{
-		$command = "parse -pair_distance 0 -dump_weights \"/home/inflector/language/parse_$count_weights.txt\" \"$_\"\n";
-	}
-	else
-	{
-		$command = "parse -pair_distance 0 -delimiter \" \" \"$_\"\n";
-	}
-	$command_chunks .= $command;
+	$command = "parse -pair_distance $pair_distance -delimiter \" \" \"$sentence\"\n";
 
 	$current_time = time();
 	$total_time = $current_time - $start_time;
@@ -65,18 +57,12 @@ while (<STDIN>)
 	$count = $count + 1;
 	$average_time = $total_time / $count;
 
+	open NC, $netcat || die "nc failed: $!\n";
+	print NC "$command";
+	close NC;
 
-	if (($count % $chunk_size) == 0) {
-
-		if ($verbose)
-		{
-			printf "-----\nchunk\n-----\n%s\n", $command_chunks;
-			printf "sentence - %d (time %.2f, total %.2f, average %.2f): %s\n", $count, $sentence_time, $total_time, $average_time, $sentence;
-		}
-		open NC, $netcat || die "nc failed: $!\n";
-		print NC "$command_chunks";
-		close NC;
-		$command_chunks = "";
+	if ($verbose) {
+		printf "parsed - %d (time %.2f, total %.2f, average %.2f): %s\n", $count, $sentence_time, $total_time, $average_time, $sentence;
 	}
 
 	if (($count % $report_interval) == 0) {
@@ -84,21 +70,4 @@ while (<STDIN>)
 	}
 }
 
-if ($count % $chunk_size != 0) {
-
-	if ($verbose)
-	{
-		printf "-----\nchunk\n-----\n%s\n", $command_chunks;
-		printf "sentence - %d (time %.2f, total %.2f, average %.2f): %s\n", $count, $sentence_time, $total_time, $average_time, $sentence;
-	}
-	open NC, $netcat || die "nc failed: $!\n";
-	print NC "$command_chunks";
-	close NC;
-}
-
-open NC, $netcat || die "nc failed: $!\n";
-print NC "parse -close_parse\n";
-close NC;
-
 printf "Processed sentence - %5d - %d seconds, average %.4f\n", $count, $total_time, $average_time;
-print "parse-one - Done with article.\n";

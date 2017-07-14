@@ -17,9 +17,11 @@
 
 ; Open the database.
 ; Edit the below, setting the database name, user and password.
-(sql-open "postgres:///nlp")
+(sql-open "postgres:///guten")
 
-;(batch-clique-pairs)
+; NOTE: This script assumes that compute-mi-launch.scm has
+; already stored the mutual information for the pairs after
+; an observe pass over the same sentences to be parsed.
 
 ; Load up the words
 (display "Fetch all words from database. This may take a few minutes.\n")

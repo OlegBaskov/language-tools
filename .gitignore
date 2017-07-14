@@ -1,2 +1,13 @@
-# Ignore files in the processing pipeline
+# Ignore files in the processing pipeline directories
+split-articles/
 submitted-articles/
+aggregated-books/
+observed-books/
+parsed-books/
+split-books/
+download/
+
+# Ignore output files
+corpus_sentences.*
+guten_parse_out.*
+wiki_parse_out.*

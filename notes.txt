@@ -31,3 +31,12 @@ So we have roughly 90M fetches for Atoms and 85M for Valuations.
 
 
 SELECT relname, idx_scan, idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del FROM pg_stat_user_tables;
+
+
+(use-modules (opencog) (opencog persist) (opencog persist-sql))
+(sql-open "postgres:///guten")
+(sql-store)
+
+
+SELECT * FROM Atoms WHERE outgoing @> ARRAY[CAST(%lu AS BIGINT)];
+
