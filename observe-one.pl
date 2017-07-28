@@ -2,10 +2,10 @@
 #
 # observe-one.pl <cogserver-host> <cogserver-port>
 #
-# Submit a collection of sentences, one sentence at a time, to the
-# cogserver located on host ARGV[0] and port ARGV[1].  The sentences
-# are read from standard input, and must be arranged with one sentence
-# per line. They are sent to the cogserver using ARGV[2] as the command.
+# Observe a collection of sentences, one sentence at a time. Observations
+# are sent to the cogserver located on host ARGV[0] and port ARGV[1].  
+# Sentences are read from standard input, and must be arranged with 
+# one sentence per line. 
 #
 # Example usage:
 #    cat file | ./observe-one.pl localhost 17001
