@@ -11,3 +11,7 @@ download/
 corpus_sentences.*
 guten_parse_out.*
 wiki_parse_out.*
+
+.DS_Store
+*out.txt
+*.zip
