@@ -5,7 +5,6 @@ aggregated-books/
 observed-books/
 parsed-books/
 split-books/
-download/
 
 # Ignore output files
 corpus_sentences.*
