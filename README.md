@@ -191,16 +191,16 @@ IMPORTANT: The above scripts only create the atoms, they do not save them to the
 at the Guile prompt (after checking that the postgres processes are finished), to store the atoms (will take minutes) and then close the database.
 
 ### Project Gutenberg - Computing Mutual Information ###
-Once the files have been observed, and saved to the database, you can run the `compute-mi-launch.scm` Scheme script to calculate mutual information for the observed word pairs. This script, opens the database, loads the word pairs, then computes the statistics for mutual information for the pairs and saves the result atoms to the database.
+Once the files have been observed, and saved to the database, you can run the `compute-mi-launch.scm` scheme script to calculate mutual information for the observed word pairs. This script, opens the database, loads the word pairs, then computes the statistics for mutual information for the pairs, then saves the result atoms to the database.
 
-First edit the file ot use the 'guten' database, then run it:
+First, edit the file to use the 'guten' database, then run it:
 ```
 nano compute-mi-launch.scm
 guile -l compute-mi-launch.scm
 ```
 
 ### Project Gutenberg - Generating MST parses ###
-To start parsing, first edit the parse-launch.scm script to use the 'guten' database, then launch the CogServer and load the word pair atoms and mutual information using:
+To start parsing, first edit the parse-launch.scm script to use the 'guten' database; then launch the CogServer; and load the word pair atoms and mutual information using:
 ```
 nano parse-launch.scm
 guile -l parse-launch.scm
