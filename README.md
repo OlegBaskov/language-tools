@@ -160,7 +160,7 @@ destination="../../text/en-tranche-1"
 ```
 which outputs the books to a text directory at the same level as the language directory which contains this ReadMe.
 
-To process the files in en-tranche-1, first create an empty database:
+To process the files in `en-tranche-1`, first create an empty database:
 ```
 dbcreate guten
 <atom.sql psql guten
