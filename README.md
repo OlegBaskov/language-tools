@@ -75,7 +75,7 @@ This new directory, `text/beta_pages`,  will be the source directory for the pro
 To process Wikipedia, create an empty database.
 
 ```
-dbcreate wiki
+createdb wiki
 <atom.sql psql wiki
 ```
 
@@ -162,7 +162,7 @@ which outputs the books to a text directory at the same level as the language di
 
 To process the files in `en-tranche-1`, first create an empty database:
 ```
-dbcreate guten
+createdb guten
 <atom.sql psql guten
 ```
 
