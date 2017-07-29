@@ -2,7 +2,7 @@
 
 These tools are scripts to analyze language text corpora by creating word pair observation atoms for language processing and then analyzing the word pairs to create mutual information pairs. Further processes allow the generation of mutual information-based parse trees connected by high-mi pairs using a heuristic greedy maximum spanning tree alogorithm.
 
-These tools interface to the C++ versions of observe and parse which are replacements for the observe-text and mst-parse scheme functions. The "observe" and "parse" tools have been implemented as CogServer Request handlers. This was done so that the workflow could stay as similar to the scheme-based text processing tools. The scheme-based tools use Bash shell and perl scripts to split Wikipedia and other text corpora into sentence files and then processes those files by sending commands to generation word-pair observation atoms in the CogServer.
+These tools interface to the C++ versions of observe and parse which are replacements for the observe-text and mst-parse scheme functions. The "observe" and "parse" tools have been implemented as CogServer Request handlers. This was done so that the workflow could stay as similar to the scheme-based text processing tools. The scheme-based tools use Bash shell and perl scripts to split Wikipedia and other text corpora into sentence files and then process those files by sending commands to generate word-pair observation atoms in the CogServer.
 
 The scripts in this repository are analogous except they replace the calls to scheme functions with custom request handlers in the CogServer which process sentences using pure C++ and no scheme. These request handlers implement the keywords "observe" and "parse" on the CogServer.
 
