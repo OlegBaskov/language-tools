@@ -79,11 +79,15 @@ createdb wiki
 <atom.sql psql wiki
 ```
 
-Now load `observe-launch.scm` while passing your database details. The password
-option, `--password`, isn't required.
+Now start the Cogserver with `observe-launch.scm` while passing your database details. The user option, '--user', and password option, `--password`, are not required.
+```
+guile -l observe-launch.scm  -- --db wiki
+```
+or
 ```
 guile -l observe-launch.scm  -- --db wiki --user opencog_user --password cheese
 ```
+if you have a non-default username and have set a password.
 
 NOTE: At this point, the terminal tab or window will have a Guile prompt. This prompt will be used later to save the contents of the observation to the PostgreSQL backing store for use by the mutual information script. So don't close it before running the calls below to store atoms to SQL and close the database; or you will close the CogServer and lose the data in the AtomSpace.
 
@@ -106,19 +110,28 @@ at the Guile prompt (after checking that the postgres processes are finished), t
 ### Wikipedia - Computing Mutual Information ###
 Once the files have been observed, and saved to the database, you can run the `compute-mi-launch.scm` scheme script to calculate mutual information for the observed word pairs. This script, opens the database, loads the word pairs, then computes the statistics for mutual information for the pairs and saves the result atoms to the database.
 
-Now load `compute-mi-launch.scm` while passing your database details. The
-password option, `--password`, isn't required.
+Now load `compute-mi-launch.scm` while passing your database details. The user option, '--user', and password
+option, `--password`, are not required.
+```
+guile -l compute-mi-launch.scm  -- --db wiki
+```
+or
 ```
 guile -l compute-mi-launch.scm  -- --db wiki --user opencog_user --password cheese
 ```
+if you have a non-default username and have set a password.
 
 ### Wikipedia - Generating MST parses ###
-Now load `parse-launch.scm` while passing your database details. The password
+Now launch the CogServer; and load the word pair atoms and mutual information by calling the scheme script `parse-launch.scm` while passing your database details. The password
 option, `--password`, isn't required.
+```
+guile -l parse-launch.scm  -- --db wiki
+```
+or
 ```
 guile -l parse-launch.scm  -- --db wiki --user opencog_user --password cheese
 ```
-It launches the CogServer and load the word pair atoms and mutual information.
+if you have a non-default username and have set a password.
 
 Now, run the `wiki-split-parse.sh` script, which will take the same Wikipedia files and generate parses for them using the mutual information computed during the prior phase. Before running this script, edit it to place the parse output file wherever you wish. NOTE: the file is opened from the CogServer so relative file paths will be relative to the CogServer's working directory.
 ```
@@ -167,11 +180,15 @@ createdb guten
 <atom.sql psql guten
 ```
 
-Now edit the `observe-launch.scm` scheme script to use the 'guten' database, then run it:
+Now start the Cogserver with `observe-launch.scm` while passing your database details. The user option, '--user', and password option, `--password` are not required.
 ```
-nano observe-launch.scm
-guile -l observe-launch.scm
+guile -l observe-launch.scm  -- --db guten
 ```
+or
+```
+guile -l observe-launch.scm  -- --db guten --user opencog_user --password cheese
+```
+if you have a non-default username and have set a password.
 
 NOTE: At this point, the terminal tab or window will have a Guile prompt. This prompt will be used later to save the contents of the observation to the PostgreSQL backing store for use by the mutual information script. So don't close it before running the calls below to store atoms to SQL and close the database; or you will close the CogServer and lose the data in the AtomSpace.
 
@@ -194,18 +211,29 @@ at the Guile prompt (after checking that the postgres processes are finished), t
 ### Project Gutenberg - Computing Mutual Information ###
 Once the files have been observed, and saved to the database, you can run the `compute-mi-launch.scm` scheme script to calculate mutual information for the observed word pairs. This script, opens the database, loads the word pairs, computes the statistics for mutual information for the pairs, then saves the mutual information atoms to the database.
 
-First, edit the file to use the 'guten' database, then run it:
+Now start the Cogserver and compute the mutual information by calling the scheme script `compute-mi-launch.scm` while passing your database details. The user option, '--user', and password option, `--password` are not required.
 ```
-nano compute-mi-launch.scm
-guile -l compute-mi-launch.scm
+guile -l compute-mi-launch.scm  -- --db guten
 ```
+or
+```
+guile -l compute-mi-launch.scm  -- --db guten --user opencog_user --password cheese
+```
+if you have a non-default username and have set a password.
 
 ### Project Gutenberg - Generating MST parses ###
 To start parsing, first edit the parse-launch.scm script to use the 'guten' database; then launch the CogServer; and load the word pair atoms and mutual information using:
+
+
+Now launch the CogServer; and load the word pair atoms and mutual information by calling the scheme script `parse-launch.scm` while passing your database details. The user option, '--user', and password option, `--password` are not required.
 ```
-nano parse-launch.scm
-guile -l parse-launch.scm
+guile -l compute-mi-launch.scm  -- --db guten
 ```
+or
+```
+guile -l compute-mi-launch.scm  -- --db guten --user opencog_user --password cheese
+```
+if you have a non-default username and have set a password.
 
 Now, run the `guten-1-split-parse.sh` script, which will take the same Project Gutenberg book files and generate parses for them using the mutual information computed during the prior phase. Before running this script, edit it to place the parse output file wherever you wish. NOTE: the file is opened from the CogServer so relative file paths will be relative to the CogServer's working directory.
 ```
