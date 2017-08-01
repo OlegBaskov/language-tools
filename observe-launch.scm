@@ -9,19 +9,21 @@
 (use-modules (opencog cogserver))
 (use-modules (opencog nlp) (opencog nlp learn))
 
+(load "utilities.scm")
+
+; Get the database connection details
+(define database-uri (get-connection-uri))
+
 ; Start the cogserver.
 ; Edit the below, setting it to the desired langauge.
 ; This sets the cogserver port-number and the prompt-style.
 (start-cogserver "opencog-en.conf")
 
 ; Open the database.
-; Edit the below, setting the database name [optionally, user and password].
-(define database "postgres:///guten")
-(sql-open database)
+(sql-open database-uri)
 (display "Opened database: ")
-(display database)
+(display database-uri)
 (display "\n")
-
 (display "Checking for empty database\n")
 (fetch-all-words)
 

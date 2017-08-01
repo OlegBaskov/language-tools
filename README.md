@@ -64,7 +64,7 @@ https://github.com/opencog/opencog/tree/master/opencog/nlp/learn/download/wikipe
 
 Those scripts will process the downloaded wikipedia text and split it into text articles sorted by directories for the starting letter of each article's title.
 
-Now copy the entire "alpha_pages" directory to a new directory called "text/beta_pages". 
+Now copy the entire "alpha_pages" directory to a new directory called "text/beta_pages".
 ```
 mkdir text/beta_pages
 cp -R path_to_alpha_pages/alpha_pages text/beta_pages
@@ -79,10 +79,10 @@ createdb wiki
 <atom.sql psql wiki
 ```
 
-Now edit the `observe-launch.scm` scheme script to use the 'wiki' database, then run it:
+Now load `observe-launch.scm` while passing your database details. The password
+option, `--password`, isn't required.
 ```
-nano observe-launch.scm
-guile -l observe-launch.scm
+guile -l observe-launch.scm  -- --db wiki --user opencog_user --password cheese
 ```
 
 NOTE: At this point, the terminal tab or window will have a Guile prompt. This prompt will be used later to save the contents of the observation to the PostgreSQL backing store for use by the mutual information script. So don't close it before running the calls below to store atoms to SQL and close the database; or you will close the CogServer and lose the data in the AtomSpace.
@@ -106,18 +106,19 @@ at the Guile prompt (after checking that the postgres processes are finished), t
 ### Wikipedia - Computing Mutual Information ###
 Once the files have been observed, and saved to the database, you can run the `compute-mi-launch.scm` scheme script to calculate mutual information for the observed word pairs. This script, opens the database, loads the word pairs, then computes the statistics for mutual information for the pairs and saves the result atoms to the database.
 
-First, edit `compute-mi-launch.scm` to use the 'wiki' database, then run it:
+Now load `compute-mi-launch.scm` while passing your database details. The
+password option, `--password`, isn't required.
 ```
-nano compute-mi-launch.scm
-guile -l compute-mi-launch.scm
+guile -l compute-mi-launch.scm  -- --db wiki --user opencog_user --password cheese
 ```
 
 ### Wikipedia - Generating MST parses ###
-To start parsing, first edit `parse-launch.scm` to use the 'wiki' database. Then launch the CogServer and load the word pair atoms and mutual information using:
+Now load `parse-launch.scm` while passing your database details. The password
+option, `--password`, isn't required.
 ```
-nano parse-launch.scm
-guile -l parse-launch.scm
+guile -l parse-launch.scm  -- --db wiki --user opencog_user --password cheese
 ```
+It launches the CogServer and load the word pair atoms and mutual information.
 
 Now, run the `wiki-split-parse.sh` script, which will take the same Wikipedia files and generate parses for them using the mutual information computed during the prior phase. Before running this script, edit it to place the parse output file wherever you wish. NOTE: the file is opened from the CogServer so relative file paths will be relative to the CogServer's working directory.
 ```
