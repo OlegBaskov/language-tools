@@ -9,6 +9,11 @@
 (use-modules (opencog persist) (opencog persist-sql))
 (use-modules (opencog nlp) (opencog nlp learn))
 
+(load "utilities.scm")
+
+; Get the database connection details
+(define database-uri (get-connection-uri))
+
 ; Start the cogserver.
 ; Edit the below, setting it to the desired langauge.
 ; This has almost no effect, other than to set the cogserver
@@ -16,8 +21,7 @@
 (start-cogserver "opencog-en.conf")
 
 ; Open the database.
-; Edit the below, setting the database name, user and password.
-(sql-open "postgres:///guten")
+(sql-open database-uri)
 
 ; NOTE: This script assumes that compute-mi-launch.scm has
 ; already stored the mutual information for the pairs after
