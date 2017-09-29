@@ -34,13 +34,13 @@ fi
 
 # Split the filename into two parts
 base=`echo $filename | cut -d \/ -f 1`
-rest=`echo $filename | cut -d \/ -f 2-6`
+rest=`echo $filename | cut -d \/ -f 2-20`
 
 echo "Processing file >>>$rest<<<"
 
 # Create directories if missing
-mkdir -p $(dirname "$splitdir/$rest")
-mkdir -p $(dirname "$subdir/$rest")
+mkdir -pv $(dirname "$splitdir/$rest")
+mkdir -pv $(dirname "$subdir/$rest")
 
 # Sentence split the article itself
 cat "$filename" | $splitter -l $lang >  "$splitdir/$rest"

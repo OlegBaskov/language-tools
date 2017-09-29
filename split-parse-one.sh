@@ -18,10 +18,11 @@ filename="$2"
 coghost="$3"
 cogport=$4
 
-splitter=./split-sentences.pl
+#splitter=./split-sentences.pl
 
-splitdir=split-articles
+#splitdir=split-articles
 subdir=submitted-articles
+parsedir=parsed-articles
 
 # Punt if the cogserver has crashed. The grep is looking for the
 # uniquely-named config file.
@@ -34,19 +35,21 @@ fi
 
 # Split the filename into two parts
 base=`echo $filename | cut -d \/ -f 1`
-rest=`echo $filename | cut -d \/ -f 2-6`
+rest=`echo $filename | cut -d \/ -f 3-20`
 
+echo "PWD $PWD"
 echo "Processing file >>>$rest<<<"
 
 # Create directories if missing
-mkdir -p $(dirname "$splitdir/$rest")
-mkdir -p $(dirname "$subdir/$rest")
+mkdir -pv $(dirname "$parsedir/$rest")
 
 # Sentence split the article itself
-cat "$filename" | $splitter -l $lang >  "$splitdir/$rest"
+#cat "$filename" | $splitter -l $lang >  "$splitdir/$rest"
+#echo "Submitting"
+#echo "$splitdir/$rest"
 
 # Submit the split article
-cat "$splitdir/$rest" | ./parse-one.pl $coghost $cogport
+cat "$subdir/$rest" | ./parse-one.pl $coghost $cogport
 
 # Punt if the cogserver has crashed (second test,
 # before doing the mv and rm below)
@@ -60,5 +63,5 @@ if [[ $? -ne 0 ]] ; then
 fi
 
 # Move article to the done-queue
-mv "$splitdir/$rest" "$subdir/$rest"
-rm "$base/$rest"
+mv "$subdir/$rest" "$parsedir/$rest"
+#rm "$bas/$rest"
