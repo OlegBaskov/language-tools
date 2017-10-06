@@ -7,4 +7,4 @@
 
 
 
-time find ../text/beta-pages-a-l -type f -exec ./split-observe-one.sh en {} localhost 17005 \;
+time find ../text/training_data/verbs/ -type f -exec ./split-observe-one.sh en {} localhost 17005 \;

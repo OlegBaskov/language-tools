@@ -9,7 +9,7 @@
 (use-modules (opencog cogserver))
 (use-modules (opencog nlp) (opencog nlp learn))
 
-(load "utilities.scm")
+(load "utilities_local.scm")
 
 ; Get the database connection details
 (define database-uri (get-connection-uri))

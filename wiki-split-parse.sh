@@ -8,10 +8,12 @@
 
 host=localhost
 port=17005
+outputFile=/home/inflector/MST_test.txt # absolute path needed
+subdir=./submitted-articles/text/training_data/verbs # relative path needed
 
 function open_parse {
 
-    echo "parse -open_parse \"/home/inflector/language/wiki_parse_out.txt\"\n"
+    echo "parse -open_parse \"$outputFile\"\n"
 }
 
 function test_parse {
@@ -32,9 +34,8 @@ function err_exit { echo -e 1>&2; exit 1; }
 #
 open_parse | nc $host $port || err_exit
 
-# time find ../text/gamma-pages-a-l -type f -exec ./split-observe-one.sh en {} $host $port \;
-
-time find ../text/gamma-pages-a-l -type f -exec ./split-parse-one.sh en {} $host $port \;
+echo $PWD
+time find $subdir -type f -exec ./split-parse-one.sh en {} $host $port \;
 
 # test_parse | nc $host $port || err_exit
 
