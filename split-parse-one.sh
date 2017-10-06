@@ -18,9 +18,6 @@ filename="$2"
 coghost="$3"
 cogport=$4
 
-#splitter=./split-sentences.pl
-
-#splitdir=split-articles
 subdir=submitted-articles
 parsedir=parsed-articles
 
@@ -37,16 +34,10 @@ fi
 base=`echo $filename | cut -d \/ -f 1`
 rest=`echo $filename | cut -d \/ -f 3-20`
 
-echo "PWD $PWD"
 echo "Processing file >>>$rest<<<"
 
 # Create directories if missing
 mkdir -pv $(dirname "$parsedir/$rest")
-
-# Sentence split the article itself
-#cat "$filename" | $splitter -l $lang >  "$splitdir/$rest"
-#echo "Submitting"
-#echo "$splitdir/$rest"
 
 # Submit the split article
 cat "$subdir/$rest" | ./parse-one.pl $coghost $cogport

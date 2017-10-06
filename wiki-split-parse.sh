@@ -34,11 +34,8 @@ function err_exit { echo -e 1>&2; exit 1; }
 #
 open_parse | nc $host $port || err_exit
 
-# time find ../text/gamma-pages-a-l -type f -exec ./split-observe-one.sh en {} $host $port \;
-
 echo $PWD
 time find $subdir -type f -exec ./split-parse-one.sh en {} $host $port \;
-#time find ~/NLP_files/semeval2014Task14/training_data/verbs_txt/test_split -type f -exec ./split-parse-one.sh en {} $host $port \;
 
 # test_parse | nc $host $port || err_exit
 

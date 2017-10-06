@@ -7,6 +7,4 @@
 
 
 
-#time find ~/NLP_files/semeval2014Task14/training_data/verbs_txt/test -type f -exec ./split-observe-one.sh en {} localhost 17005 \;
 time find ../text/training_data/verbs/ -type f -exec ./split-observe-one.sh en {} localhost 17005 \;
-#time find ../text/beta_pages-a-l -type f -exec ./split-observe-one.sh en {} localhost 17005 \;
